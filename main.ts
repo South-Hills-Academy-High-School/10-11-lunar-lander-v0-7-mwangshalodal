@@ -2,7 +2,24 @@ namespace SpriteKind {
     export const map = SpriteKind.create()
     export const rocketengine = SpriteKind.create()
 }
-scene.onOverlapTile(SpriteKind.Player, sprites.builtin.forestTiles0, function (sprite, location) {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    apple.ay = 25 * Math.sin(angle)
+    apple.ax = 25 * Math.cos(angle)
+    fireball.setFlag(SpriteFlag.Invisible, false)
+    rocketflag = 1
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    angle += 15 * (3.14 / 180)
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    angle += -15 * (3.14 / 180)
+})
+controller.A.onEvent(ControllerButtonEvent.Released, function () {
+    apple.ay = 20
+    fireball.setFlag(SpriteFlag.Invisible, true)
+    rocketflag = 0
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.darkGroundNorthWest0, function (sprite, location) {
     if (Math.abs(apple.vx) > 20 || apple.vy > 50) {
         boom = sprites.create(img`
             . . . . 2 2 2 2 2 2 2 2 . . . . 
@@ -33,23 +50,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.forestTiles0, function (s
         }
     }
     apple.setVelocity(0, -1)
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    apple.ay = 25 * Math.sin(angle)
-    apple.ax = 25 * Math.cos(angle)
-    fireball.setFlag(SpriteFlag.Invisible, false)
-    rocketflag = 1
-})
-controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    angle += 15 * (3.14 / 180)
-})
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    angle += -15 * (3.14 / 180)
-})
-controller.A.onEvent(ControllerButtonEvent.Released, function () {
-    apple.ay = 20
-    fireball.setFlag(SpriteFlag.Invisible, true)
-    rocketflag = 0
 })
 let gameOverFlag = 0
 let boom: Sprite = null
