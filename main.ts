@@ -65,20 +65,20 @@ rocketflag = 0
 landingFlag = 0
 fireball = sprites.create(img`
     . . . . . . . . . . . . . . . . 
-    . . . . . . 4 4 4 4 . . . . . . 
-    . . . . 4 4 4 5 5 4 4 4 . . . . 
-    . . . 3 3 3 3 4 4 4 4 4 4 . . . 
-    . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
-    . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
-    . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
-    . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
-    . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
-    . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
-    . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
-    . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
-    . . . 4 2 2 2 2 2 2 2 2 4 . . . 
-    . . . . 4 4 2 2 2 2 4 4 . . . . 
-    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 1 1 3 . . . . . . 
+    . . . . . . 1 3 . 3 3 . . . . . 
+    . . . . . . 1 . . . 3 2 2 3 . . 
+    . . . . . 1 3 . . . 2 2 1 3 3 . 
+    . . . . . 1 3 . 2 2 3 1 1 1 3 . 
+    . . 2 2 2 1 3 3 3 3 3 1 1 1 3 . 
+    . . 1 1 1 1 3 1 1 1 1 1 1 1 3 . 
+    . . 2 2 2 1 3 3 3 3 3 1 1 1 3 . 
+    . . . . . 1 3 . 2 2 3 1 1 1 3 . 
+    . . . . . 1 3 . . . 2 2 1 3 3 . 
+    . . . . . . 1 . . . 3 2 2 3 . . 
+    . . . . . . 1 3 . 3 3 . . . . . 
+    . . . . . . . 1 1 3 . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Projectile)
 fireball.setFlag(SpriteFlag.Invisible, true)
@@ -111,6 +111,14 @@ scaling.scaleByPercent(apple, -25, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 apple.ay = 20
 let myMinimap = minimap.minimap(MinimapScale.Eighth, 2, 0)
 let minimap2 = sprites.create(minimap.getImage(myMinimap), SpriteKind.map)
+game.onUpdate(function () {
+    if (apple.tilemapLocation().column == 27 && apple.vx > 0) {
+        apple.x = 5 * 16
+    }
+    if (apple.tilemapLocation().column == 5 && apple.vx < 0) {
+        apple.x = 28 * 16
+    }
+})
 game.onUpdate(function () {
     fuelSprite.destroy()
     fuelSprite = textsprite.create(convertToText(fuel))
