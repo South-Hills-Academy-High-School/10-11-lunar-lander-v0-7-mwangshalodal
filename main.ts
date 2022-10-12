@@ -112,11 +112,11 @@ apple.ay = 20
 let myMinimap = minimap.minimap(MinimapScale.Eighth, 2, 0)
 let minimap2 = sprites.create(minimap.getImage(myMinimap), SpriteKind.map)
 game.onUpdate(function () {
-    if (apple.tilemapLocation().column == 27 && apple.vx > 0) {
+    if (Math.round(apple.x) == 27.5 * 16 && apple.vx > 0) {
         apple.x = 5 * 16
     }
-    if (apple.tilemapLocation().column == 5 && apple.vx < 0) {
-        apple.x = 28 * 16
+    if (Math.round(apple.x) == 5.5 * 16 && apple.vx < 0) {
+        apple.x = 27 * 16
     }
 })
 game.onUpdate(function () {
